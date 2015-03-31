@@ -11,6 +11,11 @@
 
 #import "JBGetPhotoFromGallery.h"
 #import "JBGlobleStaticText.h"
+
+@interface JBGetPhotoFromGallery()
+
+
+@end
 @implementation JBGetPhotoFromGallery
 
 -(id)init{
@@ -21,14 +26,16 @@
     if(self)
     {
     
-        thumbsArr=[[NSMutableArray alloc]init];
+       
     
     }
     
     return self;
 
 }
--(void)loadAssets{
++(void)getPhotoFromLibrary:(void(^)(NSArray *arrImage))handleCompletion{
+    
+      NSMutableArray *arrthumb=[[NSMutableArray alloc]init];
   
     __block NSDate *now = [NSDate date];
     __block NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -91,7 +98,7 @@
                         [arrInsideDic addObject:dicPhotoInfo];
                         
                         [dicTime setValue:arrInsideDic forKey:[dateFormatter stringFromDate:date]];
-                        [thumbsArr addObject:dicTime];
+                        [arrthumb addObject:dicTime];
                         
                     }
                     
@@ -116,10 +123,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if(self.delegate)
-            {
-                [self.delegate jbGetPhotoFromGallery:thumbsArr];
-            }
+            handleCompletion(arrthumb);
             
         });
         
@@ -129,7 +133,7 @@
     }];
 }
 
--(BOOL)dateComparingPhotoGalleryDate:(NSString*)strPhotoGalleryDate CompareDate:(NSString*)strCompareDate{
++(BOOL)dateComparingPhotoGalleryDate:(NSString*)strPhotoGalleryDate CompareDate:(NSString*)strCompareDate{
     
     //********* Date Comparing ********************
     
@@ -159,6 +163,8 @@
   
     return NO;
 }
+
+
 
 @end
 

@@ -15,7 +15,7 @@
 #import "UIColor+Custom.h"
 #import "JBOperationDB.h"
 
-@interface ViewController ()<JBGetPhotoFromGalleryDelegate,JBTableViewDelegate>
+@interface ViewController ()<JBTableViewDelegate>
 @property (weak, nonatomic) IBOutlet JBTableView *jbTable;
 @property (nonatomic, strong) NSArray *colorArray;
 @property (nonatomic, strong) NSMutableDictionary *contentOffsetDictionary;
@@ -40,7 +40,7 @@
     self.jbTable.contentOffsetDictionary=self.contentOffsetDictionary;
     self.jbTable.jbTableViewDelegate=self;
     
-   // [self getThePhotoFromPhotoGallery];
+    [self getThePhotoFromPhotoGallery];
     
     // Just call this line to enable the scrolling navbar
     
@@ -52,15 +52,7 @@
     [self setShouldScrollWhenContentFits:YES];
     [self setViewScrollingType:self.jbTable];
     
-    NSMutableArray *arrImage = [[NSMutableArray alloc]init];
     
-    for (int i =0 ; i < 5000; i++) {
-        
-        [arrImage addObject:[UIImage imageNamed:@"1.jpg"]];
-    }
-    [JBOperationDB saveIndocumentFolder:arrImage];
-    
-   NSLog(@"%@",[JBOperationDB retriveDateFromDocument]);
 }
 
 
@@ -68,9 +60,17 @@
 - (void)getThePhotoFromPhotoGallery{
     
     
-    JBGetPhotoFromGallery *getPhoto = [[JBGetPhotoFromGallery alloc]init];
-    getPhoto.delegate=self;
-    [getPhoto loadAssets];
+    
+    [JBGetPhotoFromGallery getPhotoFromLibrary:^(NSArray *arrPhoto){
+    
+        
+        NSLog(@"%@",arrPhoto);
+        self.jbTable.arrPhotoGalleryInfo=arrPhoto;
+        self.jbTable.jbTableViewDelegate = self;
+        [self.jbTable reloadData];
+        
+    
+    }];
     
     
    /*

@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GalleryApp/JBOperationDB.m"
-            timestampString = "446839245.427377"
+            filePath = "GalleryApp/ViewController.m"
+            timestampString = "447356807.371156"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "+saveIndocumentFolder:"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "-getThePhotoFromPhotoGallery"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

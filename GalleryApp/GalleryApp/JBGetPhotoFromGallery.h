@@ -10,21 +10,9 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <UIKit/UIKit.h>
 
-@protocol JBGetPhotoFromGalleryDelegate <NSObject>
-
--(void)jbGetPhotoFromGallery:(NSArray*)arrPhoto;
-
-@end
 
 @interface JBGetPhotoFromGallery : NSObject
-{
-
-    __block NSMutableArray *thumbsArr;
-
-}
-// *************  Property *************
-@property (nonatomic, weak) id <JBGetPhotoFromGalleryDelegate> delegate;
 
 // ************** Method ***************
--(void)loadAssets;
++ (void)getPhotoFromLibrary:(void(^)(NSArray *arrImage))handleCompletion;
 @end
